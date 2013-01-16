@@ -55,7 +55,7 @@ function handleRedirect() {
 			+ (parts == null ? "" : "#/" + parts.x + "/64/" + parts.z + "/" + (typeof parts.zoom == "undefined" ? "max" : parts.zoom) + "/0/0")
 		;
 		
-		//location.replace(url);
+		location.replace(url);
 		
 		return url;
 	}
