@@ -1,0 +1,44 @@
+---
+layout: default
+activepage: home
+---
+
+<h3>Modding Changes:</h3>
+
+<ul class="padded">
+    <li>A <code>/pvp</code> command has been added to allow players to engage in mortal combat!
+        You can only engage other players who are PvP flagged.
+        This only counts for hitting players with held items and arrows shot from player bows.
+        Any remaining PvP time will be saved when you logout, and will resume when you return.
+        Don't set the time too high unless you mean it! ;D</li>
+        
+    <li>An <code>/armor</code> (or <code>/armour</code>) command has been added to allow players to hide
+    one or more armor pieces from other players. Most players have awesome skins and it's time we showed
+    them off! SFS armor will always show. If you're PvP flagged your armor will also always show.</li>
+    
+    <li>A <code>/chatcolor</code> (or <code>/chatcolour</code>) command has been added to allow players
+    to color their username in global chat. The colors are limited to what vMC supports, which you can
+    view by using the <code>/chatcolor show</code> command. Black and navy are not allowed as they are
+    a bit too dark. Type <code>/help chatcolor</code> to get help on its usage.</li>
+    
+    <li>A <code>/marker</code> command that allows players to add "points of interest" to the
+    overviewer. <a href="http://www.sargunster.com/btwforum/viewtopic.php?f=13&t=6122&p=109734#p109734">Read Details &gt;&gt;</a></li>
+    
+    <li>Squid spawning has been limited so it cannot drastically pass the spawn limit when a lot of ocean chunks are loaded.
+    This was causing a lot of needless tick time.</li>
+    
+    <li>When wolves are bred, there is a chance that the baby will be born wild! It has become difficult
+    to find wolves on our server without going far out, so this should help. Note: wolves can only be bred by their owners.</li>
+    
+    <li>Spawn is no longer always loaded. Many of us don't spend time there anyway,
+    so might as well prevent it from using up resources.</li>
+    
+    <li>Several community areas near spawn are protected from anything that may change them.</li>
+    
+    <li>Chunks are randomly checked to see if they are not in range of a player (i.e. not within the 17x17 chunk range).
+    If they are found to be out of range of a player, they are unloaded. This is done to avoid the large number of
+    chunks that get stuck loaded over time.</li>
+    
+    <li>The spawn point is forced to always be at a specific location (the dock at the Time's End tavern) as well
+    as a specific yaw and pitch (aka: the direction the player is looking).</li>
+</ul>
