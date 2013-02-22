@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{% if page.title %}{{ page.title }} | {% endif %}Better Than Solo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ page.basepath }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="{{ page.basepath }}css/site.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Better Than Solo</h1>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li class=" {% if page.activepage == 'home' %}active{% endif %}"><a href="{{ page.basepath }}./">Home</a></li>
+                    <li class=" {% if page.activepage == 'rules' %}active{% endif %}"><a href="{{ page.basepath }}rules.html">Rules</a></li>
+                    <li class=" {% if page.activepage == 'mods' %}active{% endif %}"><a href="{{ page.basepath }}mods.html">Mods</a></li>
+                    <li><a href="http://server.betterthansolo.com/overview/">Overviewer</a></li>
+                    <li><a href="http://server.betterthansolo.com/livemap/">Live Map</a></li>
+                    <li><a href="http://www.sargunster.com/btwforum/viewtopic.php?f=13&t=6122">Forum Post</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        {{ content }}
+    </div>
+    
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
