@@ -28,7 +28,7 @@ $(function() {
                 timeout: 1500,
                 success: function(data, textStatus, jqXHR) {
                     $("#tick").text(data.tick.average);
-                    $("#tickSec").text(data.tick.average);
+                    $("#tickSec").text(data.tickSec.average);
                 
                     for (var i = 0; i < worlds.length; i++) {
                         $("#world" + i + "_worldTick").text(data.worlds[i].worldTick.average);
