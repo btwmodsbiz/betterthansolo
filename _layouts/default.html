@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ page.basepath }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="{{ page.basepath }}css/site.css" rel="stylesheet" media="screen">
+    
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    {% if page.js %}
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        
+        {% for file in page.js %}
+            {% capture firstchar %}{{ file | truncate: 1, '' }}{% endcapture %}
+            {% capture first7char %}{{ file | truncate: 7, '' }}{% endcapture %}
+            {% capture first8char %}{{ file | truncate: 8, '' }}{% endcapture %}
+            {% if firstchar == '.' or firstchar == '/' or first7char == 'http://' or first8char == 'https://' %}
+                <script src="{{ file }}"></script>
+            {% else %}
+                <script src="{{ page.basepath }}js/{{ file }}"></script>
+            {% endif %}
+        {% endfor %}
+	{% endif %}
 </head>
 
 <body>
