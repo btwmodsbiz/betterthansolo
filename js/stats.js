@@ -14,7 +14,7 @@ $(function() {
         worldsDiv.show();
         
         $.ajax({
-            url: "public/basic.txt",
+            url: "http://server.betterthansolo.com/stats/public/basic.txt",
             cache: false,
             dataType: 'json',
             timeout: 1500,
