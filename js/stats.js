@@ -7,7 +7,7 @@ $(function() {
         var worlds = [ "Overworld", "Nether", "The End" ];
         
         for (var i = 0; i < worlds.length; i++) {
-            var world = $("<div>").html(worldsHtml.replace(/id=\"world0_/g, 'id="world' + i + '_')).appendTo(worldsDiv);
+            var world = $("<div>").addClass("span3").html(worldsHtml.replace(/id=\"world0_/g, 'id="world' + i + '_')).appendTo(worldsDiv);
             world.find("h3 span").text(worlds[i]);
         }
         

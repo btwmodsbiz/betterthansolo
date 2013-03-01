@@ -6,21 +6,29 @@ js: [ stats.js ]
 ---
 
 <h3>Stats:</h3>
-<ul>
-    <li><strong>Tick:</strong> <span id="tick"></span> ms avg</li>
-    <li><strong>Ticks per second:</strong> <span id="tickSec"></span></li>
-</ul>
 
-<div id="Worlds" style="display: none;">
-    <h3>World: <span></span></h3>
-    <ul>
-        <li><strong>Tick:</strong> <span id="world0_worldTick"></span> ms avg</li>
+<div>Below are some basic realtime stats for the server. This page is a work in progress.</div>
+
+<div class="row">
+    <div class="span3">
+        <h3>Server</h3>
+        <ul>
+            <li><strong>Tick:</strong> <span id="tick"></span> ms</li>
+            <li><strong>Ticks/Sec:</strong> <span id="tickSec"></span></li>
+        </ul>
+    </div>
+
+    <div id="Worlds" style="display: none;">
+        <h3><span></span></h3>
+        <ul>
+            <li><strong>Tick:</strong> <span id="world0_worldTick"></span> ms</li>
+        
+            <li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms</li>
+            <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms</li>
+            <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>
     
-        <li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms avg</li>
-        <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms avg</li>
-        <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms avg</li>
-    
-        <li><strong>Total Entities:</strong> <span id="world0_worldLoadedEntities"></span> avg</li>
-        <li><strong>Tile Entities:</strong> <span id="world0_worldLoadedTileEntities"></span> avg</li>
-    </ul>
+            <li><strong>Total Entities:</strong> <span id="world0_worldLoadedEntities"></span></li>
+            <li><strong>Tile Entities:</strong> <span id="world0_worldLoadedTileEntities"></span></li>
+        </ul>
+    </div>
 </div>
