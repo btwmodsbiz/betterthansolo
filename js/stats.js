@@ -15,11 +15,15 @@ $(function() {
         
         var count = 0;
         
+        var forceShow = { "measurements": true };
+                
         var loadStats = function() {
             count++;
             
-            if (count > 1200)
+            if (count > 1200) {
+                $("#TimeoutMessage").text("Stats paused. Refresh your browser to resume.").show();
                 return;
+            }
             
             $.ajax({
                 url: "http://server.betterthansolo.com/stats/public/basic.txt",
@@ -29,14 +33,22 @@ $(function() {
                 success: function(data, textStatus, jqXHR) {
                     $("#tick").text(data.tick.average);
                     $("#tickSec").text(data.tickSec.average);
-                
-                    for (var i = 0; i < worlds.length; i++) {
-                        $("#world" + i + "_worldTick").text(data.worlds[i].worldTick.average);
+                    
+                    for (var i = 0; i < data.worlds.length; i++) {
+                        for (var key in data.worlds[i]) {
+                            var valElem = $("#world" + i + "_" + key);
+                            if (valElem.size() == 1) {
+                                valElem.text(data.worlds[i][key].average);
+                                valElem.parent()[(data.profile[key] === true || forceShow[key] === true) ? "show" : "hide"]();
+                            }
+                        }
+                        /*$("#world" + i + "_worldTick").text(data.worlds[i].worldTick.average);
                         $("#world" + i + "_entityUpdate").text(data.worlds[i].entityUpdate.average);
                         $("#world" + i + "_tileEntityUpdate").text(data.worlds[i].tileEntityUpdate.average);
                         $("#world" + i + "_blockUpdate").text(data.worlds[i].blockUpdate.average);
                         $("#world" + i + "_worldLoadedEntities").text(data.worlds[i].worldLoadedEntities.average);
                         $("#world" + i + "_worldLoadedTileEntities").text(data.worlds[i].worldLoadedTileEntities.average);
+                        $("#world" + i + "_measurements").text(data.worlds[i].measurements.average);*/
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

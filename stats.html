@@ -7,7 +7,11 @@ js: [ stats.js ]
 
 <h3>Stats:</h3>
 
-<div>Below are some basic realtime stats for the server. This page is a work in progress.</div>
+<p>Below are some basic realtime stats for the server. This page is a work in progress. <code>ms</code> = milliseconds.</p>
+
+<p>When the server tick is 45ms or higher you will start feeling the server running slow. If the ticks/sec drops below 19 then the effects will become quite noticable.</p>
+
+<p id="TimeoutMessage" style="display: none; color: #900; font-weight: bold;"></p>
 
 <div class="row">
     <div class="span3">
@@ -23,12 +27,16 @@ js: [ stats.js ]
         <ul>
             <li><strong>Tick:</strong> <span id="world0_worldTick"></span> ms</li>
         
-            <li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms</li>
+            <li><strong>Entity Updates:</strong> <span id="world0_entitiesRegular"></span> ms</li>
+            <li><strong>Tile Entity Updates:</strong> <span id="world0_entitiesTile"></span> ms</li>
+        
+            <!--<li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms</li>
             <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms</li>
-            <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>
+            <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>-->
     
-            <li><strong>Total Entities:</strong> <span id="world0_worldLoadedEntities"></span> avg</li>
+            <li><strong>Entities:</strong> <span id="world0_worldLoadedEntities"></span> avg</li>
             <li><strong>Tile Entities:</strong> <span id="world0_worldLoadedTileEntities"></span> avg</li>
-        </ul>
+            
+            <li><strong>Measurements:</strong> <span id="world0_measurements"></span> avg</li></ul>
     </div>
 </div>
