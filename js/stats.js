@@ -1,67 +1,76 @@
 $(function() {
-    var worldsDiv = $("div#Worlds");
-    if (worldsDiv.size() == 1) {
-        var worldsHtml = worldsDiv.html();
-        worldsDiv.html("");
+    var fetchWait = 1500;
+    var fetchMaxMinutes = 15;
+    
+    var BasicStats = Backbone.Model.extend({
+        defaults: {
+            worlds: []
+        },
         
-        var worlds = [ "Overworld", "Nether", "The End" ];
-        
-        for (var i = 0; i < worlds.length; i++) {
-            var world = $("<div>").addClass("span3").html(worldsHtml.replace(/id=\"world0_/g, 'id="world' + i + '_')).appendTo(worldsDiv);
-            world.find("h3 span").text(worlds[i]);
+        url: function() {
+            return "http://server.betterthansolo.com/stats/public/basic.txt";
+        }
+    });
+    
+    var ServerStats = Backbone.View.extend({
+        tagName: "div",
+        template: _.template($("#ServerTemplate").html()),
+        initialize: function() {
+            this.listenTo(this.model, "change", this.render);
+        },
+        render: function() {
+            this.$el.html(this.template(this.model.attributes));
+        }
+    });
+    
+    var WorldStats = Backbone.View.extend({
+        tagName: "div",
+        template: _.template($("#WorldTemplate").html()),
+        initialize: function() {
+            this.listenTo(this.model, "change", this.render);
+        },
+        render: function() {
+            this.$el.html(this.template({
+                enabled: this.model.attributes.players > 2,
+                name: this.options.name,
+                stats: this.model.attributes.worlds[this.options.worldIndex]
+            }));
+        }
+    });
+    
+    var basicStats = new BasicStats();
+    
+    var serverStats = new ServerStats({
+        model: basicStats,
+        el: $("#ServerStats").get(0)
+    });
+    
+    _.each([ "Overworld", "Nether", "The End"], function(name, worldIndex) {
+        new WorldStats({
+            worldIndex: worldIndex,
+            name: name,
+            model: basicStats,
+            el: $('<div class="span3"></div>').appendTo("#Worlds").get(0)
+        });
+    });
+    
+    var fetchCount = 0;
+    var fetchMax = Math.floor(fetchMaxMinutes * 60 * 1000 / fetchWait);
+    var fetch = function() {
+        if (++fetchCount > fetchMax) {
+            $("#TimeoutMessage").text("Stats paused. Refresh your browser to resume.").show();
+            return;
         }
         
-        worldsDiv.show();
-        
-        var count = 0;
-        
-        var forceShow = { "measurements": true };
-                
-        var loadStats = function() {
-            count++;
-            
-            if (count > 1200) {
-                $("#TimeoutMessage").text("Stats paused. Refresh your browser to resume.").show();
-                return;
+        basicStats.fetch({
+            success: function() {
+                setTimeout(fetch, fetchWait);
+            },
+            error: function() {
+                setTimeout(fetch, fetchWait);
             }
-            
-            $.ajax({
-                url: "http://server.betterthansolo.com/stats/public/basic.txt",
-                cache: false,
-                dataType: 'json',
-                timeout: 1500,
-                success: function(data, textStatus, jqXHR) {
-                    $("#tick").text(data.tick.average);
-                    $("#tickSec").text(data.tickSec.average);
-                    
-                    for (var i = 0; i < data.worlds.length; i++) {
-                        for (var key in data.worlds[i]) {
-                            var valElem = $("#world" + i + "_" + key);
-                            if (valElem.size() == 1) {
-                                valElem.text(data.worlds[i][key].average);
-                                valElem.parent()[(data.profile[key] === true || forceShow[key] === true) ? "show" : "hide"]();
-                            }
-                        }
-                        /*$("#world" + i + "_worldTick").text(data.worlds[i].worldTick.average);
-                        $("#world" + i + "_entityUpdate").text(data.worlds[i].entityUpdate.average);
-                        $("#world" + i + "_tileEntityUpdate").text(data.worlds[i].tileEntityUpdate.average);
-                        $("#world" + i + "_blockUpdate").text(data.worlds[i].blockUpdate.average);
-                        $("#world" + i + "_worldLoadedEntities").text(data.worlds[i].worldLoadedEntities.average);
-                        $("#world" + i + "_worldLoadedTileEntities").text(data.worlds[i].worldLoadedTileEntities.average);
-                        $("#world" + i + "_measurements").text(data.worlds[i].measurements.average);*/
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    
-                },
-                complete: function(jqXHR, textStatus) {
-                    setTimeout(function() {
-                        loadStats();
-                    }, 1500);
-                }
-            });
-        };
-        
-        loadStats();
-    }
+        });
+    };
+    
+    fetch();
 });

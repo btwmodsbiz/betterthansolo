@@ -2,8 +2,43 @@
 layout: default
 title: Stats
 activepage: stats
-js: [ stats.js ]
+js: [ lodash.underscore.min.js, backbone-min.js, stats.js ]
 ---
+
+<script type="text/template" id="ServerTemplate">
+    <h3>Server</h3>
+    <ul>
+        <li><strong>Players:</strong> <%- players %></li>
+        <li><strong>Tick:</strong> <%- tick.average %> ms</li>
+        <li><strong>Ticks/Sec:</strong> <%- tickSec.average %> avg</li>
+    </ul>
+</script>
+
+<script type="text/template" id="WorldTemplate">
+    <h3><%- name %></h3>
+    <ul>
+        <li><strong>Tick: </strong><%- stats.worldTick.average %> ms</li>
+
+        <li><strong>Entity Updates: </strong><%- stats.entitiesRegular.average %> ms</li>
+        <li><strong>Tile Entity Updates: </strong><%- stats.entitiesTile.average %> ms</li>
+
+        <!--<li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms</li>
+        <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms</li>
+        <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>-->
+
+        <li><strong>Entities: </strong><%- stats.worldLoadedEntities.average %> avg</li>
+        <li><strong>Tile Entities: </strong><%- stats.worldLoadedTileEntities.average %> avg</li>
+    
+        <li><strong>Measurements: </strong> <%- stats.measurements.average %> avg</li>
+    </ul>
+    
+    <% if (enabled && stats.byEntity && stats.byEntity.length > 0) { %>
+        <h4>Top 10 Entities:</h4>
+        <ul>
+        <% _.forEach(stats.byEntity, function(entity) { %><li><strong><%= entity.name.replace(/^Entity(.+)$/, '$1') %>: </strong><%- entity.average %> ms</li><% }); %>
+        </ul>
+    <% } %>
+</script>
 
 <h3>Stats:</h3>
 
@@ -14,29 +49,6 @@ js: [ stats.js ]
 <p id="TimeoutMessage" style="display: none; color: #900; font-weight: bold;"></p>
 
 <div class="row">
-    <div class="span3">
-        <h3>Server</h3>
-        <ul>
-            <li><strong>Tick:</strong> <span id="tick"></span> ms</li>
-            <li><strong>Ticks/Sec:</strong> <span id="tickSec"></span> avg</li>
-        </ul>
-    </div>
-
-    <div id="Worlds" style="display: none;">
-        <h3><span></span></h3>
-        <ul>
-            <li><strong>Tick:</strong> <span id="world0_worldTick"></span> ms</li>
-        
-            <li><strong>Entity Updates:</strong> <span id="world0_entitiesRegular"></span> ms</li>
-            <li><strong>Tile Entity Updates:</strong> <span id="world0_entitiesTile"></span> ms</li>
-        
-            <!--<li><strong>Entity Updates:</strong> <span id="world0_entityUpdate"></span> ms</li>
-            <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms</li>
-            <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>-->
-    
-            <li><strong>Entities:</strong> <span id="world0_worldLoadedEntities"></span> avg</li>
-            <li><strong>Tile Entities:</strong> <span id="world0_worldLoadedTileEntities"></span> avg</li>
-            
-            <li><strong>Measurements:</strong> <span id="world0_measurements"></span> avg</li></ul>
-    </div>
+    <div id="ServerStats" class="span3"></div>
+    <div id="Worlds"></div>
 </div>
