@@ -26,10 +26,10 @@ js: [ lodash.underscore.min.js, backbone-min.js, stats.js ]
         <li><strong>Tile Entity Updates:</strong> <span id="world0_tileEntityUpdate"></span> ms</li>
         <li><strong>Block Updates:</strong> <span id="world0_blockUpdate"></span> ms</li>-->
 
-        <li><strong>Entities: </strong><%- stats.worldLoadedEntities.average %> avg</li>
-        <li><strong>Tile Entities: </strong><%- stats.worldLoadedTileEntities.average %> avg</li>
+        <li><strong>Entities: </strong><%- Math.floor(stats.worldLoadedEntities.average) %> avg</li>
+        <li><strong>Tile Entities: </strong><%- Math.floor(stats.worldLoadedTileEntities.average) %> avg</li>
     
-        <li><strong>Measurements: </strong> <%- stats.measurements.average %> avg</li>
+        <li><strong>Measurements: </strong> <%- Math.floor(stats.measurements.average) %> avg</li>
     </ul>
     
     <% if (enabled && stats.byEntity && stats.byEntity.length > 0) { %>
