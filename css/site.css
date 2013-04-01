@@ -7,3 +7,11 @@ code {
     background-color: #e6e6e6;
     border-width: 0px;
 }
+
+.footer {
+    border-top: 1px solid #CCC;
+    padding: 16px;
+    margin-top: 16px;
+    color: #999;
+    text-align: center;
+}
