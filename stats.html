@@ -32,11 +32,41 @@ js: [ lodash.underscore.min.js, backbone-min.js, stats.js ]
         <li><strong>Measurements: </strong> <%- Math.floor(stats.measurements.average) %> avg</li>
     </ul>
     
-    <% if (enabled && stats.byEntity && stats.byEntity.length > 0) { %>
+    <% if (stats.byEntity && stats.byEntity.length > 0) { %>
         <h4>Top 10 Entities:</h4>
         <ul>
         <% _.forEach(stats.byEntity, function(entity) { %><li><strong><%= entity.name.replace(/^Entity(.+)$/, '$1') %>: </strong><%- entity.average %> ms</li><% }); %>
         </ul>
+    <% } %>
+</script>
+
+<script type="text/template" id="LastLoginTemplate">
+    <% if (max && players && players.length > 0) { %>
+        <% var quarter = Math.ceil(max / 3); %>
+        <h3>Last <%= max %> Logins:</h3>
+        <div class="row">
+        <div class="span4">
+            <ul>
+            <% for (var i = 0; i < quarter && i < players.length; i++) { %>
+                <li><strong><%= players[i].name %>: </strong><%- players[i].date %></li>
+            <% } %>
+            </ul>
+        </div>
+        <div class="span4">
+            <ul>
+            <% for (var i = quarter; i < quarter * 2 && i < players.length; i++) { %>
+                <li><strong><%= players[i].name %>: </strong><%- players[i].date %></li>
+            <% } %>
+            </ul>
+        </div>
+        <div class="span4">
+            <ul>
+            <% for (var i = quarter * 2; i < players.length; i++) { %>
+                <li><strong><%= players[i].name %>: </strong><%- players[i].date %></li>
+            <% } %>
+            </ul>
+        </div>
+        </div>
     <% } %>
 </script>
 
@@ -46,9 +76,11 @@ js: [ lodash.underscore.min.js, backbone-min.js, stats.js ]
 
 <p>When the server tick is 45ms or higher you will start feeling the server running slow. If the ticks/sec drops below 19 then the effects will become quite noticable.</p>
 
-<p id="TimeoutMessage" style="display: none; color: #900; font-weight: bold;"></p>
+<p id="Messages" style="color: #900; font-weight: bold;"></p>
 
 <div class="row">
     <div id="ServerStats" class="span3"></div>
     <div id="Worlds"></div>
 </div>
+
+<div id="LastLogin"></div>
